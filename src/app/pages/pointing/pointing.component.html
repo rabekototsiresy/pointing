@@ -1,0 +1,102 @@
+<nz-card >
+    <div nz-row nzJustify="end">
+   
+      <button nz-button nzType="primary" nzDanger (click)="resetDatabase()" style="margin-right: 20px;">Vider La Base</button>
+
+     <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Ajouter Horaire</span></button>
+    </div>
+   
+     <nz-modal [(nzVisible)]="isVisible" nzTitle="Ajouter Horaire" (nzOnCancel)="handleCancel()" (nzOnOk)="getTime()">
+       <ng-container *nzModalContent>
+         <div nz-row>
+           <div nz-col nzSpan="12">
+             <nz-card >
+               <p>Entrée:</p>
+               <nz-time-picker
+                 nzSize="large"
+                 [(ngModel)]="timeIn"
+                 nzFormat="HH:mm"
+               ></nz-time-picker>
+             </nz-card>
+           </div>
+           <div nz-col nzSpan="12">
+             <nz-card >
+               <p>Sortie:</p>
+               <nz-time-picker
+                 nzSize="large"
+                 [(ngModel)]="timeOut"
+                 nzFormat="HH:mm"
+               ></nz-time-picker>
+             </nz-card>
+           </div>
+           <div nz-col nzSpan="24">
+             <nz-card >
+               <p><b>Pause</b>:</p>
+               
+               <div nz-row nzJustify="space-between"> 
+                <div>
+                 <p for="start">Début</p>
+                 <nz-time-picker
+                 nzSize="large"
+                 [(ngModel)]="timeLunchIn"
+                 nzFormat="HH:mm"
+               ></nz-time-picker>
+                </div>
+               <div>
+                 <p>Fin:</p>
+                 <nz-time-picker
+                 nzSize="large"
+                 [(ngModel)]="timeLunchOut"
+                 nzFormat="HH:mm"
+               ></nz-time-picker>
+               </div>
+               </div>
+             </nz-card>
+           </div>
+          
+             <!-- <button (click)="getTime()" nz-button nzType="primary">GET TIME</button> -->
+         
+         
+         </div>
+       </ng-container>
+     </nz-modal>
+   
+   
+   </nz-card>
+   
+   <div>
+       <nz-table #basicTable nzShowPagination
+        [nzData]="listOfData">
+           <thead>
+             <tr>
+               <th>Entrée</th>
+               <th>Sortie</th>
+               <th>Pause In</th>
+               <th>Pause out</th>
+               <th>Reste</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let item of pointingList">
+               <td>{{ item.timeIn |  date: 'HH:mm ' }}</td>
+               <td>{{  item.timeOut |  date: 'HH:mm ' }}</td>
+               <td>{{  item.timeLunchIn |  date: 'HH:mm '}}</td>
+               <td>{{  item.timeLunchOut |  date: 'HH:mm '}}</td>
+               <td>
+                 <span>
+                  <!-- <button nz-button nzType="primary">
+                    <span nz-icon nzType="search"></span>
+                    {{item.rest}} MIN
+                  </button> -->
+                  <nz-alert style="text-align: center;" *ngIf="item.rest<0" nzType="error" [nzMessage]="''+item.rest+'MIN'"></nz-alert>
+                  <nz-alert style="text-align: center;" *ngIf="item.rest>=0" nzType="success" [nzMessage]="'+'+item.rest+'MIN'"></nz-alert>
+
+                 </span>
+                 
+   
+               </td>
+             </tr>
+           </tbody>
+         </nz-table>
+   </div>
+   

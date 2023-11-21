@@ -1,0 +1,38 @@
+<div class="">
+    <h1 style="text-align: center;">Semaine du: {{monday  | date: 'dd/MM/yyyy' }}  au {{friday  | date: 'dd/MM/yyyy'}}</h1>
+</div>
+<div style="padding:30px;"  nz-row nzJustify="center">
+      <div nz-col [nzSpan]="8">
+        <nz-card nzTitle="Date Du Jour">
+          <span style="font-size: 30px;" nz-icon nzType="calendar" nzTheme="outline"></span>
+          <p  style="margin-top: 20px;">{{today}}</p>
+        </nz-card>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-card nzTitle="Etat Heur du travail">
+          <span style="font-size: 30px;"nz-icon nzType="field-time" nzTheme="outline"></span>
+          <p style="margin-top: 20px;"> {{restWork}} MIN</p>
+        </nz-card>
+      </div>
+    
+  </div>
+
+  <hr>
+<div nz-row nzJustify="center">
+
+    <div style="margin-top: 20px;">
+        <circle-progress
+      
+        [percent]="percantageWork"
+        [outerStrokeWidth]="16"
+        [innerStrokeWidth]="8"
+        [outerStrokeColor]="'#78C000'"
+        [innerStrokeColor]="'#C7E596'"
+        [animation]="true"
+        [animationDuration]="300"
+        [options]="optionsChart"
+      ></circle-progress>
+   
+        <!-- <nz-progress style="font-size: 50px; width: 100px;" [nzPercent]="percantageWork" nzType="circle" [nzFormat]="formatOne"></nz-progress> -->
+    </div>
+</div>
