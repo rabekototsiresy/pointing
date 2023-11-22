@@ -74,6 +74,7 @@
                <th>Pause In</th>
                <th>Pause out</th>
                <th>Reste</th>
+               <th>Actions</th>
              </tr>
            </thead>
            <tbody>
@@ -94,6 +95,14 @@
                  </span>
                  
    
+               </td>
+               <td style="text-align: center;">
+                <button  nz-popconfirm
+                nzPopconfirmTitle="Are you sure delete this task?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="delete(item._id)"
+               nz-button nzType="primary" nzDanger nzShape="circle"><span nz-icon nzType="delete"></span></button>
+
                </td>
              </tr>
            </tbody>

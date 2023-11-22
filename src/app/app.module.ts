@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +32,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 // Import library module
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(fr);
 
@@ -67,6 +69,7 @@ registerLocaleData(fr);
     NzAlertModule,
     HttpClientModule,
     NgxSpinnerModule,
+    NzPopconfirmModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 250,
@@ -78,6 +81,12 @@ registerLocaleData(fr);
       titleFontSize: '40px',
       subtitleFontSize: '50px'
       
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     })
   ],
   providers: [

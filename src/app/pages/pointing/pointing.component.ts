@@ -111,6 +111,17 @@ export class PointingComponent {
     this.spinner.hide()
     })
   }
+  delete(id: string) {
+    this.spinner.show();
+    this.pointing.delete(id).subscribe(res => {
+      this.spinner.hide();
+      this.pointingList = this.pointingList.filter(p => p._id !== id)
+    },
+    (e) => {
+      alert(e.error)
+    this.spinner.hide()
+    })
+  }
 
   showModal(): void {
     this.isVisible = true;

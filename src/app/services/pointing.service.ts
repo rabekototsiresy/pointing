@@ -16,6 +16,10 @@ export class PointingService {
   get() {
     return this.http.get(`${this.baseUrl}/${this.collection}?apikey=${this.apiKey}`)
   }
+  delete(id: string) {
+    return this.http.delete(`${this.baseUrl}/${this.collection}/${id}?apikey=${this.apiKey}`)
+
+  }
   deleteAll(idList: string[]) {
 
     console.log(idList,'id list');
