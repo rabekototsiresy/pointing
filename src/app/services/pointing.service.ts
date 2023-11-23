@@ -18,10 +18,8 @@ export class PointingService {
   }
   delete(id: string) {
     return this.http.delete(`${this.baseUrl}/${this.collection}/${id}?apikey=${this.apiKey}`)
-
   }
   deleteAll(idList: string[]) {
-
     console.log(idList,'id list');
     const httpOptions = {
       headers: new HttpHeaders({

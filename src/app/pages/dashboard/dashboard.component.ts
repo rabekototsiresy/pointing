@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor(private spinner: NgxSpinnerService,private pointing: PointingService){}
   pointingList: any[] = [];
   restWork: number = 0;
+  restWorkMin = 0
   durationWork: number = 0;
   percantageWork = 0;
   hoursWork = 0;
@@ -45,6 +46,10 @@ export class DashboardComponent implements OnInit {
       this.restWork = restList.reduce((acc,value) => {
         return acc + value
       },0)
+
+      const restWork = moment.duration(this.restWork, 'minutes');
+      this.restWork = Math.floor(restWork.asHours());
+      this.restWorkMin = restWork.minutes();
       this.durationWork = durationWorkList.reduce((acc,value) => {
         return acc + value
       },0)

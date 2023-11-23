@@ -6,7 +6,7 @@
      <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Ajouter Horaire</span></button>
     </div>
    
-     <nz-modal [(nzVisible)]="isVisible" nzTitle="Ajouter Horaire" (nzOnCancel)="handleCancel()" (nzOnOk)="getTime()">
+     <nz-modal [(nzVisible)]="isVisible" nzTitle="Ajouter Horaire" [nzOkText]="'Visualiser et sauvegarder'" (nzOnCancel)="handleCancel()" (nzOnOk)="getTime()">
        <ng-container *nzModalContent>
          <div nz-row>
            <div nz-col nzSpan="12">
@@ -58,6 +58,16 @@
          
          
          </div>
+         <div nz-row>
+          <div nz-col nzSpan="24">
+            <nz-card >
+
+              <p>Durée de travail: <b>{{ durationWork }}h {{ durationWorkMin}}Min</b></p>
+              <p>vous avez gagné perdu: <b> {{ supplOrLost }}h {{ supplOrLostMin}}min</b></p>
+            </nz-card>
+          </div>
+         
+          </div>
        </ng-container>
      </nz-modal>
    
@@ -69,6 +79,7 @@
         [nzData]="listOfData">
            <thead>
              <tr>
+                <th>Date</th>
                <th>Entrée</th>
                <th>Sortie</th>
                <th>Pause In</th>
@@ -79,6 +90,7 @@
            </thead>
            <tbody>
              <tr *ngFor="let item of pointingList">
+              <td>{{ item.timeIn |  date:'fullDate'}}</td>
                <td>{{ item.timeIn |  date: 'HH:mm ' }}</td>
                <td>{{  item.timeOut |  date: 'HH:mm ' }}</td>
                <td>{{  item.timeLunchIn |  date: 'HH:mm '}}</td>
@@ -98,7 +110,7 @@
                </td>
                <td style="text-align: center;">
                 <button  nz-popconfirm
-                nzPopconfirmTitle="Are you sure delete this task?"
+                nzPopconfirmTitle="Etes vous sur de supprimer cette enregistrement?"
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="delete(item._id)"
                nz-button nzType="primary" nzDanger nzShape="circle"><span nz-icon nzType="delete"></span></button>

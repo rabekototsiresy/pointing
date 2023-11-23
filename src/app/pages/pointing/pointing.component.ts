@@ -36,7 +36,14 @@ export class PointingComponent {
   timeOut =  new Date().setHours(17);
   timeLunchIn =  new Date().setHours(12);
   timeLunchOut =  new Date().setHours(12);
-  pointingList: any[] = []
+  durationWork = 0;
+  durationWorkMin = 0;
+  pointingList: any[] = [];
+  supplOrLost = 0;
+  supplOrLostMin = 0;
+  visualised = false;
+  activatyList: any[] = []
+
   constructor(private pointing: PointingService,private  spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -50,7 +57,7 @@ export class PointingComponent {
 
     })
   }
-
+  
   getTime() {
     const DURATION_WORK = 480; // 8heures
     const mTimeIn = moment(this.timeIn)
@@ -65,15 +72,30 @@ export class PointingComponent {
     const workHourDiffLunch = diffInOut - diffLunch;
 
     console.log(workHourDiffLunch,'duration travail',60*8);
-    const result = workHourDiffLunch -  DURATION_WORK 
+    const result = workHourDiffLunch -  DURATION_WORK ;
 
-    // this.activatyList = [...this.activatyList,{
-    //   timeIn: this.timeIn,
-    //   timeOut: this.timeOut,
-    //   timeLunchIn:this.timeLunchIn,
-    //   timeLunchOut: this.timeLunchOut,
-    //   rest: result
-    // }]
+
+
+    
+    this.durationWork = workHourDiffLunch;
+    this.supplOrLost = result
+
+    const duratioWork = moment.duration(this.durationWork, 'minutes');
+       this.durationWork = Math.floor(duratioWork.asHours());
+       this.durationWorkMin = duratioWork.minutes();
+    const suppOrLostDuration = moment.duration(this.supplOrLost, 'minutes');
+       this.supplOrLost = Math.floor(suppOrLostDuration.asHours());
+       this.supplOrLostMin = suppOrLostDuration.minutes();
+
+
+      if(this.visualised) {
+         this.activatyList = [...this.activatyList,{
+      timeIn: this.timeIn,
+      timeOut: this.timeOut,
+      timeLunchIn:this.timeLunchIn,
+      timeLunchOut: this.timeLunchOut,
+      rest: result
+    }]
     const data = {
       timeIn: this.timeIn,
       timeOut: this.timeOut,
@@ -82,19 +104,26 @@ export class PointingComponent {
       rest: result,
       durationWork: workHourDiffLunch
     } as any as IPointing
+
     this.spinner.show()
+
     this.pointing.add(data).subscribe(res => {
       this.pointingList = [...this.pointingList,res]
       this.spinner.hide()
+      this.isVisible = false;
     },
     (e) => {
       this.spinner.hide()
       alert(e)
     }
+
+    
     )
+      }
+    this.visualised = true
 
 
-    this.isVisible = false;
+   
   }
 
   resetDatabase() {
@@ -135,5 +164,7 @@ export class PointingComponent {
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isVisible = false;
+    this.visualised = false;
+    
   }
 }
