@@ -3,6 +3,8 @@ import * as  moment from 'moment';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { PointingService } from 'src/app/services/pointing.service';
 import { IPointing } from 'src/app/shared/interfaces/IPointing';
+import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-pointing',
   templateUrl: './pointing.component.html',
@@ -54,7 +56,6 @@ export class PointingComponent {
     },(e)=> {
       alert(e)
       this.spinner.hide()
-
     })
   }
   
@@ -78,7 +79,7 @@ export class PointingComponent {
 
     
     this.durationWork = workHourDiffLunch;
-    this.supplOrLost = result
+    this.supplOrLost = result;
 
     const duratioWork = moment.duration(this.durationWork, 'minutes');
        this.durationWork = Math.floor(duratioWork.asHours());
@@ -167,4 +168,15 @@ export class PointingComponent {
     this.visualised = false;
     
   }
+getHourMin(time: any) {
+  const momentTime = moment.duration(time, 'minutes');
+  const h = Math.floor(momentTime.asHours());
+  const min = momentTime.minutes();
+
+  return `${h}h ${min}min`
+}
+
+
+
+
 }

@@ -80,21 +80,24 @@
            <thead>
              <tr>
                 <th>Date</th>
-               <th>Entrée</th>
-               <th>Sortie</th>
-               <th>Pause In</th>
-               <th>Pause out</th>
+               <th>Heure d’arrivée</th>
+               <th>Début du déjeuner</th>
+               <th>Fin du déjeuner</th>
+               <th>Heure de départ</th>
+               <th>Heures de travail</th>
                <th>Reste</th>
                <th>Actions</th>
              </tr>
            </thead>
            <tbody>
              <tr *ngFor="let item of pointingList">
-              <td>{{ item.timeIn |  date:'fullDate'}}</td>
+              <td>{{ item.timeIn |  date:'EEEE'}}</td>
                <td>{{ item.timeIn |  date: 'HH:mm ' }}</td>
-               <td>{{  item.timeOut |  date: 'HH:mm ' }}</td>
                <td>{{  item.timeLunchIn |  date: 'HH:mm '}}</td>
                <td>{{  item.timeLunchOut |  date: 'HH:mm '}}</td>
+               <td>{{  item.timeOut |  date: 'HH:mm ' }}</td>
+               <td>{{  getHourMin(item.durationWork) }}</td>
+          
                <td>
                  <span>
                   <!-- <button nz-button nzType="primary">

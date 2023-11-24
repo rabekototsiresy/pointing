@@ -53,7 +53,13 @@ export class DashboardComponent implements OnInit {
       this.durationWork = durationWorkList.reduce((acc,value) => {
         return acc + value
       },0)
-      this.percantageWork = Math.round ((this.durationWork/40))
+
+      console.log(this.durationWork,'duration workd',Math.round((this.durationWork/2400)))
+
+      // 2400min --- 100%
+      // durationWork ?
+      // duation work -
+      this.percantageWork = (this.durationWork/2400)*100
 
       const duration = moment.duration(this.durationWork, 'minutes');
        this.hoursWork = Math.floor(duration.asHours());
